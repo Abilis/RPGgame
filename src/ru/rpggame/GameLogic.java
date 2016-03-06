@@ -60,6 +60,7 @@ public class GameLogic {
 
         do {
             //выводим текущую информацию о игроке и противнике в начале каждого раунда
+            System.out.println("Раунд: " + currentRound);
             mainHero.showInfo();
             currentMonster.showInfo();
 
@@ -101,16 +102,38 @@ public class GameLogic {
                 break;
             }
 
+            //ход монстра
+            currentMonster.makeNewRound();
+
+            //монстр атакует главного героя
+            mainHero.getDamage(currentMonster.makeAttack());
 
 
-            break;
+            //Если главный герой умер - выходим из цикла
+            if (!mainHero.isAlive()) {
+                System.out.println(mainHero.name + " скончался от ранений!");
+                break;
+            }
 
+            currentRound++; //увеличиваем счетчик раундов
 
         } while (true);
 
+        //объявляем результаты игры
+        if (!mainHero.isAlive()) {
+            System.out.println("Победил " + currentMonster.name);
+        }
+
+        if (!currentMonster.isAlive()) {
+            System.out.println("Победил " + mainHero.name);
+        }
+
+        if (mainHero.isAlive() && currentMonster.isAlive()) {
+            System.out.println(mainHero.name + " сбежал с поля боя!");
+        }
 
 
-
+        System.out.println("Игра окончена");
     } //конец основной игровой логики
 
     public void initGame() { //инициализируется начальное состояние игры
