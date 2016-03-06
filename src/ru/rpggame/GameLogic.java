@@ -111,7 +111,8 @@ public class GameLogic {
                 mainHero.setBlockStanse();
             }
             else if (inputNum == 3) {
-                //герой пропускает ход
+                //герой пропускает ход с целью восстановить здоровье
+                mainHero.skipTern();
 
             }
             else if (inputNum == 9) {

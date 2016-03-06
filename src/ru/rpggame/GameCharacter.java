@@ -120,4 +120,27 @@ public class GameCharacter implements Cloneable {
             life = false;
         }
 
-    }}
+    }
+
+    public void skipTern() {
+
+        int heal;
+
+        if (hp < hpMax / 2) {
+            heal = (int)(0.15 * hpMax);
+        }
+        else {
+            heal = (int)(0.1 * hpMax);
+        }
+
+        if (hp + heal > hpMax) {
+            heal = hpMax - hp;
+        }
+
+        hp += heal;
+
+        System.out.println(name + " решил в этот раз не атаковать, а регенерировать. Боевая медитация принесла " +
+                            heal + " единиц здоровья");
+    }
+
+}
