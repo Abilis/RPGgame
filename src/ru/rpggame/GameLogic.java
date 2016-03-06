@@ -103,6 +103,7 @@ public class GameLogic {
             }
             else if (inputNum == 2) {
                 //герой защищается
+
             }
             else if (inputNum == 3) {
                 //герой пропускает ход

@@ -72,6 +72,11 @@ public class GameCharacter implements Cloneable {
         System.out.println("Имя: " + name + ", hp: " + hp + "/" + hpMax);
     }
 
+    public void setBlockStanse() {
+        blockStanse = true;
+        System.out.println(name + " встал в защитную стойку!");
+    }
+
     public void makeNewRound() {
         blockStanse = false;
     }
@@ -86,7 +91,7 @@ public class GameCharacter implements Cloneable {
         if (critChance > GameLogic.rand.nextInt(100) ) {
 
             currentAttack *= 2;
-            System.out.println(name + " нанес критический урон в размере " + currentAttack + "единиц урона!");
+            System.out.println(name + " нанес критический урон в размере " + currentAttack + " единиц урона!");
         }
         else {
             System.out.println(name + " нанес урон в размере " + currentAttack + " единиц урона!");
@@ -97,15 +102,15 @@ public class GameCharacter implements Cloneable {
 
     public void getDamage(int inputDamage) {
 
-        this.inputDamage -= this.defense; //из входящего урона отнимаем значение защиты
+        inputDamage -= defense; //из входящего урона отнимаем значение защиты
 
         if (blockStanse) { //если включена защитная стойка, то уменьшаем урон еще раз
-            this.inputDamage -= this.defense;
+            inputDamage -= defense;
             System.out.println(name + " заблокировал дополнительно " + defense + " единиц урона в защитной стойке!");
         }
 
-        if (this.inputDamage < 0) { //проверка на отрицательный урон
-            this.inputDamage = 0;
+        if (inputDamage < 0) { //проверка на отрицательный урон
+            inputDamage = 0;
         }
 
         System.out.println(name + " получил " + inputDamage + " единиц урона");
