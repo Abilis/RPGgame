@@ -8,8 +8,9 @@ public class Hero extends GameCharacter {
     private int currentExp;
     private int expToNextLevel;
 
-    public Hero(String charClass, String name, int hp, int attack, int defense) {
-        super(charClass, name, hp, attack, defense);
+    public Hero(String charClass, String name, int hp, int attack, int defense, String description) {
+
+        super(charClass, name, hp, attack, defense, description);
         this.currentExp = 0;
         this.expToNextLevel = 1000;
     }
@@ -31,6 +32,12 @@ public class Hero extends GameCharacter {
                     + defense + ". Здоровье полностью восстановлено");
         }
 
+    }
+
+    @Override
+    public void showInfo() {
+        System.out.println("Имя: " + name + ", hp: " + hp + "/" + hpMax + ", уровень: " + level +
+                ", опыт: " + currentExp + "/" + expToNextLevel);
     }
 
 }

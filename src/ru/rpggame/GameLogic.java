@@ -42,7 +42,7 @@ public class GameLogic {
         System.out.println("Выберите героя:");
 
         for (int i = 0; i < 3; i++) {
-            System.out.println((i + 1) + ". " + heroPattern[i].getName());
+            System.out.println((i + 1) + ". " + heroPattern[i].getName() + ". " + heroPattern[i].getDescription());
         }
 
         try {
@@ -56,7 +56,7 @@ public class GameLogic {
         mainHero = (Hero)heroPattern[numHero - 1].clone(); //создаем героя путем копирования из шаблона
         System.out.println("Вы выбрали героя " + mainHero.getName());
 
-        currentMonster = (Monster)monsterPattern[0].clone(); //создаем монстра путем копирования из шаблона
+        currentMonster = (Monster)monsterPattern[rand.nextInt(3)].clone(); //создаем монстра путем копирования из шаблона
 
         do {
             //выводим текущую информацию о игроке и противнике в начале каждого раунда
@@ -84,7 +84,17 @@ public class GameLogic {
 
                 if (!currentMonster.isAlive()) { //если текущий монстр умер
 
+                    System.out.println(currentMonster.getName() + " повержен!");
                     mainHero.gainExp(currentMonster.getHpMax() * 2); //начисляем главному герою опыт
+                    System.out.println();
+
+                    //задержка в 2 секунды перед появлением нового монстра
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
                     currentMonster = (Monster)monsterPattern[rand.nextInt(3)].clone(); //вызываем случайного нового монстра
 
                     System.out.println("На поле боя выходит новый монстр - " + currentMonster.getName());
@@ -138,13 +148,13 @@ public class GameLogic {
 
     public void initGame() { //инициализируется начальное состояние игры
         //задаются шаблоны для главного героя и монстров
-        heroPattern[0] = new Hero("Рыцарь", "Великий рыцарь", 500, 30, 12);
-        heroPattern[1] = new Hero("Варвар", "Конан", 600, 50, 0);
-        heroPattern[2] = new Hero("Дворф", "Гимли", 400, 20, 30);
+        heroPattern[0] = new Hero("Рыцарь", "Великий рыцарь", 500, 30, 12, "Сбалансированный герой");
+        heroPattern[1] = new Hero("Варвар", "Конан", 600, 50, 0, "Упор в атаку");
+        heroPattern[2] = new Hero("Дворф", "Гимли", 400, 20, 30, "Упор в защиту");
 
-        monsterPattern[0] = new Monster("Гуманоид", "Злобный гоблин", 120, 30, 2);
-        monsterPattern[1] = new Monster("Гуманоид", "Сильный орк", 240, 50, 2);
-        monsterPattern[2] = new Monster("Гуманоид", "Могучий тролль", 400, 25, 5);
+        monsterPattern[0] = new Monster("Гуманоид", "Злобный гоблин", 120, 30, 2, "Сбалансированный монстр");
+        monsterPattern[1] = new Monster("Гуманоид", "Сильный орк", 240, 50, 2, "Упор в силу");
+        monsterPattern[2] = new Monster("Гуманоид", "Могучий тролль", 400, 25, 5, "Упор в живучесть");
 
         currentRound = 1;
     }

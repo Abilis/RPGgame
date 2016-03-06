@@ -35,7 +35,13 @@ public class GameCharacter implements Cloneable {
 
     protected int inputDamage;
 
-    public GameCharacter(String charClass, String name, int hp, int attack, int defense) {
+    protected String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public GameCharacter(String charClass, String name, int hp, int attack, int defense, String description) {
 
         this.charClass = charClass;
         this.name = name;
@@ -47,6 +53,7 @@ public class GameCharacter implements Cloneable {
         this.critChance = 10;
         this.level = 1;
         this.life = true;
+        this.description = description;
     }
 
     public Object clone() {
@@ -82,7 +89,7 @@ public class GameCharacter implements Cloneable {
             System.out.println(name + " нанес критический урон в размере " + currentAttack + "единиц урона!");
         }
         else {
-            System.out.println(name + " нанес урон в размере " + currentAttack + "единиц урона!");
+            System.out.println(name + " нанес урон в размере " + currentAttack + " единиц урона!");
         }
 
         return currentAttack;

@@ -5,8 +5,10 @@ package ru.rpggame;
  */
 public class Monster extends GameCharacter {
 
-    public Monster(String charClass, String name, int hp, int attack, int defense) {
-        super(charClass, name, hp, attack, defense);
+    public Monster(String charClass, String name, int hp, int attack, int defense, String description) {
+
+        super(charClass, name, hp, attack, defense, description);
+
     }
 
 }
