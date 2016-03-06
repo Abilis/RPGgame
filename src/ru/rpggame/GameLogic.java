@@ -82,10 +82,12 @@ public class GameLogic {
                 //герой атакует
                 currentMonster.getDamage(mainHero.makeAttack());
 
+
                 if (!currentMonster.isAlive()) { //если текущий монстр умер
 
                     System.out.println(currentMonster.getName() + " повержен!");
                     mainHero.gainExp(currentMonster.getHpMax() * 2); //начисляем главному герою опыт
+
                     System.out.println();
 
                     //задержка в 2 секунды перед появлением нового монстра
@@ -98,6 +100,7 @@ public class GameLogic {
                     currentMonster = (Monster)monsterPattern[rand.nextInt(3)].clone(); //вызываем случайного нового монстра
 
                     System.out.println("На поле боя выходит новый монстр - " + currentMonster.getName());
+                    continue;
                 }
 
             }
@@ -144,7 +147,7 @@ public class GameLogic {
         }
 
 
-        System.out.println("Игра окончена");
+        System.out.println("Игра окончена. Количество раундов: " + currentRound);
     } //конец основной игровой логики
 
     public void initGame() { //инициализируется начальное состояние игры
