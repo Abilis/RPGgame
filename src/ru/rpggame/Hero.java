@@ -7,12 +7,14 @@ public class Hero extends GameCharacter {
 
     private int currentExp;
     private int expToNextLevel;
+    private int killedEnemies;
 
     public Hero(String charClass, String name, int hp, int attack, int defense, String description) {
 
         super(charClass, name, hp, attack, defense, description);
         this.currentExp = 0;
         this.expToNextLevel = 1000;
+        this.killedEnemies = 0;
     }
 
     public void gainExp(int exp) { //метод получения опыта
@@ -36,8 +38,12 @@ public class Hero extends GameCharacter {
 
     @Override
     public void showInfo() {
-        System.out.println("Имя: " + name + ", hp: " + hp + "/" + hpMax + ", уровень: " + level +
-                ", опыт: " + currentExp + "/" + expToNextLevel);
+        System.out.println(name + ", hp: " + hp + "/" + hpMax + ", уровень: " + level +
+                ", опыт: " + currentExp + "/" + expToNextLevel + ". Повержено врагов: " + killedEnemies);
+    }
+
+    public void killedEnemiesUp() {
+        killedEnemies++;
     }
 
 }

@@ -69,7 +69,7 @@ public class GameCharacter implements Cloneable {
     }
 
     public void showInfo() {
-        System.out.println("Имя: " + name + ", hp: " + hp + "/" + hpMax);
+        System.out.println(name + ", hp: " + hp + "/" + hpMax);
     }
 
     public void setBlockStanse() {
@@ -120,6 +120,4 @@ public class GameCharacter implements Cloneable {
             life = false;
         }
 
-    }
-
-}
+    }}

@@ -62,6 +62,7 @@ public class GameLogic {
             //выводим текущую информацию о игроке и противнике в начале каждого раунда
             System.out.println("Раунд: " + currentRound);
             mainHero.showInfo();
+            System.out.println("<против>");
             currentMonster.showInfo();
 
             //ход игрока
@@ -87,6 +88,7 @@ public class GameLogic {
 
                     System.out.println(currentMonster.getName() + " повержен!");
                     mainHero.gainExp(currentMonster.getHpMax() * 2); //начисляем главному герою опыт
+                    mainHero.killedEnemiesUp(); //увеличиваем счетчик убитых монстров
 
                     System.out.println();
 
@@ -110,6 +112,7 @@ public class GameLogic {
             }
             else if (inputNum == 3) {
                 //герой пропускает ход
+
             }
             else if (inputNum == 9) {
                 //выход из игры
