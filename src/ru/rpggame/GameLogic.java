@@ -4,11 +4,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Random;
 
 /**
  * Created by Abilis on 06.03.2016.
  */
 public class GameLogic {
+
+    public static Random rand = new Random();
 
     private Hero[] heroPattern = new Hero[3];
     private Monster[] monsterPattern = new Monster[3];
@@ -19,6 +22,7 @@ public class GameLogic {
     private int currentRound;
 
     private String strNumHero;
+    private String inputStr;
 
     public GameLogic() {
         initGame();
@@ -63,7 +67,40 @@ public class GameLogic {
             System.out.println("Ход игрока. 1 - атака, 2 - защита, 3 - пропустить ход, 9 - выйти из игры");
             mainHero.makeNewRound(); //сбрасываем параметры для начала нового раунда
 
-            
+            try {
+                this.inputStr = bufferedReader.readLine();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            int inputNum = Integer.parseInt(this.inputStr);
+
+            if (inputNum == 1) {
+
+                //герой атакует
+                currentMonster.getDamage(mainHero.makeAttack());
+
+                if (!currentMonster.isAlive()) { //если текущий монстр умер
+
+                    mainHero.gainExp(currentMonster.getHpMax() * 2); //начисляем главному герою опыт
+                    currentMonster = (Monster)monsterPattern[rand.nextInt(3)].clone(); //вызываем случайного нового монстра
+
+                    System.out.println("На поле боя выходит новый монстр - " + currentMonster.getName());
+                }
+
+            }
+            else if (inputNum == 2) {
+                //герой защищается
+            }
+            else if (inputNum == 3) {
+                //герой пропускает ход
+            }
+            else if (inputNum == 9) {
+                //выход из игры
+                break;
+            }
+
 
 
             break;

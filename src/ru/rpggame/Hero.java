@@ -16,7 +16,20 @@ public class Hero extends GameCharacter {
 
     public void gainExp(int exp) { //метод получения опыта
 
+        currentExp += exp;
+        System.out.println(name + " получил " + exp + " единиц опыта");
 
+        if (currentExp > expToNextLevel) {
+            currentExp -= expToNextLevel;
+            expToNextLevel *= 1.1;
+            level++;
+            attack += 5;
+            defense += 1;
+            hpMax += 50;
+            hp = hpMax;
+            System.out.println(name + " повысил уровень! Атака возросла до " + attack + ", защита - до "
+                    + defense + ". Здоровье полностью восстановлено");
+        }
 
     }
 
