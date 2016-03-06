@@ -103,7 +103,7 @@ public class GameLogic {
             }
             else if (inputNum == 2) {
                 //герой защищается
-
+                mainHero.setBlockStanse();
             }
             else if (inputNum == 3) {
                 //герой пропускает ход
