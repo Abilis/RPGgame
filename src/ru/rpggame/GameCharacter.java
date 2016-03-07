@@ -172,4 +172,31 @@ public class GameCharacter implements Cloneable {
                             heal + " единиц здоровья");
     }
 
+    public void cure (int _cure) {
+
+        hp += _cure;
+
+        if (hp > hpMax) {
+            hp = hpMax;
+            System.out.println(name + " полностью восстановил здоровье!");
+        }
+        else {
+            System.out.println(name + " восстановил здоровье на " + _cure + " единиц!");
+        }
+
+    }
+
+    public void useItem (String _item) {
+
+        switch (_item) {
+
+            case "Слабое зелье лечения":
+                System.out.println(name + " использовал слабое зелье лечения!");
+                cure(50);
+                break;
+
+
+        }
+    }
+
 }

@@ -56,7 +56,8 @@ public class GameLogic {
             //ход игрока
             mainHero.makeNewRound(); //сбрасываем параметры для начала нового раунда для героя
 
-            int inputNum = getAction(0, 3, "Ход игрока. 1 - атака, 2 - защита, 3 - подлечиться, 0 - выйти из игры");
+            int inputNum = getAction(0, 4, "Ход игрока. 1 - атака, 2 - защита, 3 - подлечиться," +
+                    " 4 - инвентарь, 0 - выйти из игры");
 
 
             currentMonster.makeNewRound(); //сброс параметров для начала нового раунда для монстра
@@ -104,6 +105,21 @@ public class GameLogic {
                 mainHero.skipTern();
 
             }
+            else if (inputNum == 4) { //вызор инвентаря героя
+
+                mainHero.getHeroInv().showAllItems();
+                int invInput = getAction(0, mainHero.getHeroInv().getInvSize(), "Выберите предмет для использования: ");
+
+                String usedItem = mainHero.getHeroInv().useItem(invInput);
+
+                if (usedItem != "") {
+                    mainHero.useItem(usedItem);
+                }
+                else {
+                    System.out.println(mainHero.getName() + " закрыл сумку");
+                }
+            }
+
             else if (inputNum == 0) {
                 //выход из игры
                 break;

@@ -8,6 +8,11 @@ public class Hero extends GameCharacter {
     private int currentExp;
     private int expToNextLevel;
     private int killedEnemies;
+    private Inventory heroInv;
+
+    public Inventory getHeroInv() {
+        return heroInv;
+    }
 
     public Hero(String charClass, String name, int strengh, int agility, int stamina, String description) {
 
@@ -15,6 +20,8 @@ public class Hero extends GameCharacter {
         this.currentExp = 0;
         this.expToNextLevel = 100;
         this.killedEnemies = 0;
+        heroInv = new Inventory();
+        heroInv.addNewItem("Слабое зелье лечения");
     }
 
     public void gainExp(int exp) { //метод получения опыта
