@@ -1,7 +1,4 @@
 package ru.rpggame;
-
-import java.util.Objects;
-
 /**
  * Created by Abilis on 06.03.2016.
  */
