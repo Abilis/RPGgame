@@ -22,7 +22,7 @@ public class Hero extends GameCharacter {
         currentExp += exp;
         System.out.println(name + " получил " + exp + " единиц опыта");
 
-        if (currentExp > expToNextLevel) {
+        if (currentExp >= expToNextLevel) {
             currentExp -= expToNextLevel;
             expToNextLevel *= 1.3;
             level++;
