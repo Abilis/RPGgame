@@ -14,6 +14,16 @@ public class Hero extends GameCharacter {
         return heroInv;
     }
 
+    private boolean inventoryShowed; //переменная, показывающая, смотрел ли герой в инвентарь в текущей итерации цикла
+
+    public boolean getInventoruShowed() {
+        return inventoryShowed;
+    }
+
+    public void setInventoryShowed(boolean _inventoryShowed) {
+        inventoryShowed = _inventoryShowed;
+    }
+
     public Hero(String charClass, String name, int strengh, int agility, int stamina, String description) {
 
         super(charClass, name, strengh, agility, stamina, description);
@@ -52,6 +62,12 @@ public class Hero extends GameCharacter {
 
     public void killedEnemiesUp() {
         killedEnemies++;
+    }
+
+    @Override
+    public void makeNewRound() {
+        blockStanse = false;
+        inventoryShowed = false;
     }
 
 }

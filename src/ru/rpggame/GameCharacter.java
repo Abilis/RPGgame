@@ -96,6 +96,7 @@ public class GameCharacter implements Cloneable {
 
     public void makeNewRound() {
         blockStanse = false;
+
     }
 
     public int makeAttack() {

@@ -27,6 +27,9 @@ public class GameLogic {
         initGame();
     }
 
+    private boolean gameOver;
+
+
 
     public void mainGameLoop() { //основная игровая логика
 
@@ -56,6 +59,7 @@ public class GameLogic {
             //ход игрока
             mainHero.makeNewRound(); //сбрасываем параметры для начала нового раунда для героя
 
+
             int inputNum = getAction(0, 4, "Ход игрока. 1 - атака, 2 - защита, 3 - подлечиться," +
                     " 4 - инвентарь, 0 - выйти из игры");
 
@@ -68,61 +72,77 @@ public class GameLogic {
             }
 
 
-            if (inputNum == 1) {
+            switch (inputNum) {
 
-                //герой атакует
-                currentMonster.getDamage(mainHero.makeAttack());
+                case 1:
+                    //герой атакует
+                    currentMonster.getDamage(mainHero.makeAttack());
 
 
-                if (!currentMonster.isAlive()) { //если текущий монстр умер
+                    if (!currentMonster.isAlive()) { //если текущий монстр умер
 
-                    System.out.println(currentMonster.getName() + " повержен!");
-                    mainHero.gainExp(currentMonster.getHpMax() * 2); //начисляем главному герою опыт
-                    mainHero.killedEnemiesUp(); //увеличиваем счетчик убитых монстров
+                        System.out.println(currentMonster.getName() + " повержен!");
+                        mainHero.gainExp(currentMonster.getHpMax() * 2); //начисляем главному герою опыт
+                        mainHero.killedEnemiesUp(); //увеличиваем счетчик убитых монстров
 
-                    System.out.println();
+                        System.out.println();
 
-                    //задержка в 2 секунды перед появлением нового монстра
-                    try {
-                        Thread.sleep(2000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        //задержка в 2 секунды перед появлением нового монстра
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                        currentMonster = (Monster) monsterPattern[rand.nextInt(7)].clone(); //вызываем случайного нового монстра
+
+                        System.out.println("На поле боя выходит новый монстр - " + currentMonster.getName());
+                        continue;
+                    }
+                    break;
+
+                case 2:
+                    //герой защищается
+                    mainHero.setBlockStanse();
+                    break;
+
+                case 3:
+                    //герой пропускает ход с целью восстановить здоровье
+                    mainHero.skipTern();
+                    break;
+
+                case 4:
+                    //вызор инвентаря героя
+
+                    mainHero.getHeroInv().showAllItems();
+                    int invInput = getAction(0, mainHero.getHeroInv().getInvSize(), "Выберите предмет для использования: ");
+
+                    String usedItem = mainHero.getHeroInv().useItem(invInput);
+
+                    if (usedItem != "") {
+                        mainHero.useItem(usedItem);
+                    } else {
+                        System.out.println(mainHero.getName() + " решил ничего не использовать");
+                        mainHero.setInventoryShowed(true);
                     }
 
-                    currentMonster = (Monster)monsterPattern[rand.nextInt(7)].clone(); //вызываем случайного нового монстра
+                    break;
 
-                    System.out.println("На поле боя выходит новый монстр - " + currentMonster.getName());
-                    continue;
-                }
-
-            }
-            else if (inputNum == 2) {
-                //герой защищается
-                mainHero.setBlockStanse();
-            }
-            else if (inputNum == 3) {
-                //герой пропускает ход с целью восстановить здоровье
-                mainHero.skipTern();
+                case 0:
+                    //выход из игры
+                    gameOver = true;
+                    break;
 
             }
-            else if (inputNum == 4) { //вызор инвентаря героя
 
-                mainHero.getHeroInv().showAllItems();
-                int invInput = getAction(0, mainHero.getHeroInv().getInvSize(), "Выберите предмет для использования: ");
-
-                String usedItem = mainHero.getHeroInv().useItem(invInput);
-
-                if (usedItem != "") {
-                    mainHero.useItem(usedItem);
-                }
-                else {
-                    System.out.println(mainHero.getName() + " закрыл сумку");
-                }
-            }
-
-            else if (inputNum == 0) {
-                //выход из игры
+            //обработка выхода из цикла
+            if (gameOver) {
                 break;
+            }
+
+            //если был осмотр инвентаря - прерываем текущую итерацию цикла, чтобы монстр не бил героя
+            if (mainHero.getInventoruShowed()) {
+                continue;
             }
 
             //ход монстра
@@ -183,6 +203,7 @@ public class GameLogic {
         monsterPattern[6] = new Monster("Гуманоид", "Всадник без головы", 12, 15, 15, "Головы нет - пиши пропало!");
 
         currentRound = 1;
+        gameOver = false;
     }
 
     public int getAction(int min, int max, String str) {
