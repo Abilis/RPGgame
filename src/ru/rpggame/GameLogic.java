@@ -13,8 +13,8 @@ public class GameLogic {
 
     public static Random rand = new Random();
 
-    private Hero[] heroPattern = new Hero[3];
-    private Monster[] monsterPattern = new Monster[3];
+    private Hero[] heroPattern = new Hero[7];
+    private Monster[] monsterPattern = new Monster[7];
 
     private Hero mainHero;
     private Monster currentMonster;
