@@ -24,6 +24,8 @@ public class GameLogic {
     private String strNumHero;
     private String inputStr;
 
+    private int monsterTern;
+
     public GameLogic() {
         initGame();
     }
@@ -56,7 +58,7 @@ public class GameLogic {
         mainHero = (Hero)heroPattern[numHero - 1].clone(); //создаем героя путем копирования из шаблона
         System.out.println("Вы выбрали героя " + mainHero.getName());
 
-        currentMonster = (Monster)monsterPattern[rand.nextInt(3)].clone(); //создаем монстра путем копирования из шаблона
+        currentMonster = (Monster)monsterPattern[rand.nextInt(7)].clone(); //создаем монстра путем копирования из шаблона
 
         do {
             //выводим текущую информацию о игроке и противнике в начале каждого раунда
@@ -99,7 +101,7 @@ public class GameLogic {
                         e.printStackTrace();
                     }
 
-                    currentMonster = (Monster)monsterPattern[rand.nextInt(3)].clone(); //вызываем случайного нового монстра
+                    currentMonster = (Monster)monsterPattern[rand.nextInt(7)].clone(); //вызываем случайного нового монстра
 
                     System.out.println("На поле боя выходит новый монстр - " + currentMonster.getName());
                     continue;
@@ -123,8 +125,18 @@ public class GameLogic {
             //ход монстра
             currentMonster.makeNewRound();
 
-            //монстр атакует главного героя
-            mainHero.getDamage(currentMonster.makeAttack());
+            monsterTern = currentMonster.chooseTern(); //выбор варианта хода монстром
+
+            switch (monsterTern) {
+
+                case 1: mainHero.getDamage(currentMonster.makeAttack()); //монстр атакует главного героя
+                    break;
+                case 2: currentMonster.setBlockStanse(); // монстр встает в защитную стойку
+                    break;
+                case 3: currentMonster.skipTern(); //монстр пропускает ход, чтобы подлечиться
+                    break;
+
+            }
 
 
             //Если главный герой умер - выходим из цикла
@@ -160,9 +172,13 @@ public class GameLogic {
         heroPattern[1] = new Hero("Варвар", "Конан", 600, 50, 0, "Упор в атаку");
         heroPattern[2] = new Hero("Дворф", "Гимли", 400, 20, 30, "Упор в защиту");
 
-        monsterPattern[0] = new Monster("Гуманоид", "Злобный гоблин", 120, 30, 2, "Сбалансированный монстр");
+        monsterPattern[0] = new Monster("Гуманоид", "Злобный гоблин", 120, 30, 2, "Довольно слабый монстр");
         monsterPattern[1] = new Monster("Гуманоид", "Сильный орк", 240, 50, 2, "Упор в силу");
         monsterPattern[2] = new Monster("Гуманоид", "Могучий тролль", 400, 25, 5, "Упор в живучесть");
+        monsterPattern[3] = new Monster("Гуманоид", "Веселый молочник", 300, 25, 8, "Разносит по утрам молоко в бидоне");
+        monsterPattern[4] = new Monster("Гуманоид", "Черный ворон", 90, 10, 10, "Слабая птица с отрым клювом");
+        monsterPattern[5] = new Monster("Гуманоид", "Оживший скелет", 50, 120, 2, "Мало здоровья, но сильная атака");
+        monsterPattern[6] = new Monster("Гуманоид", "Всадник без головы", 220, 15, 7, "Головы нет - пиши пропало!");
 
         currentRound = 1;
     }

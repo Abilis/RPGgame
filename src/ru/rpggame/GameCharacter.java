@@ -33,8 +33,6 @@ public class GameCharacter implements Cloneable {
         return life;
     }
 
-    protected int inputDamage;
-
     protected String description;
 
     public String getDescription() {
