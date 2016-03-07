@@ -21,9 +21,6 @@ public class GameLogic {
 
     private int currentRound;
 
-    private String strNumHero;
-    private String inputStr;
-
     private int monsterTern;
 
     public GameLogic() {
@@ -33,27 +30,16 @@ public class GameLogic {
 
     public void mainGameLoop() { //основная игровая логика
 
-        InputStream inputStream = System.in;
-        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-
-
-
         System.out.println("Игра началась!");
-        System.out.println("Выберите героя:");
+
+        System.out.println("Возможные герои:");
 
         for (int i = 0; i < 3; i++) {
             System.out.println((i + 1) + ". " + heroPattern[i].getName() + ". " + heroPattern[i].getDescription());
         }
 
-        try {
-            this.strNumHero = bufferedReader.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        int numHero = getAction(1, 3, "Выберите героя:"); //Выбор героя игроком
 
-        int numHero = Integer.parseInt(strNumHero); //считываем введенное пользователем числов
 
         mainHero = (Hero)heroPattern[numHero - 1].clone(); //создаем героя путем копирования из шаблона
         System.out.println("Вы выбрали героя " + mainHero.getName());
@@ -68,17 +54,9 @@ public class GameLogic {
             currentMonster.showInfo();
 
             //ход игрока
-            System.out.println("Ход игрока. 1 - атака, 2 - защита, 3 - пропустить ход, 9 - выйти из игры");
             mainHero.makeNewRound(); //сбрасываем параметры для начала нового раунда для героя
 
-            try {
-                this.inputStr = bufferedReader.readLine();
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            int inputNum = Integer.parseInt(this.inputStr);
+            int inputNum = getAction(0, 3, "Ход игрока. 1 - атака, 2 - защита, 3 - подлечиться, 0 - выйти из игры");
 
 
             currentMonster.makeNewRound(); //сброс параметров для начала нового раунда для монстра
@@ -126,7 +104,7 @@ public class GameLogic {
                 mainHero.skipTern();
 
             }
-            else if (inputNum == 9) {
+            else if (inputNum == 0) {
                 //выход из игры
                 break;
             }
@@ -176,19 +154,46 @@ public class GameLogic {
 
     public void initGame() { //инициализируется начальное состояние игры
         //задаются шаблоны для главного героя и монстров
-        heroPattern[0] = new Hero("Рыцарь", "Великий рыцарь", 500, 30, 12, "Сбалансированный герой");
-        heroPattern[1] = new Hero("Варвар", "Конан", 600, 50, 0, "Упор в атаку");
-        heroPattern[2] = new Hero("Дворф", "Гимли", 400, 20, 30, "Упор в защиту");
+        heroPattern[0] = new Hero("Рыцарь", "Великий рыцарь", 12, 12, 20, "Сбалансированный герой");
+        heroPattern[1] = new Hero("Варвар", "Конан", 18, 5, 20, "Упор в атаку");
+        heroPattern[2] = new Hero("Дворф", "Гимли", 7, 20, 20, "Упор в защиту");
 
-        monsterPattern[0] = new Monster("Гуманоид", "Злобный гоблин", 120, 30, 2, "Довольно слабый монстр");
-        monsterPattern[1] = new Monster("Гуманоид", "Сильный орк", 240, 50, 2, "Упор в силу");
-        monsterPattern[2] = new Monster("Гуманоид", "Могучий тролль", 400, 25, 5, "Упор в живучесть");
-        monsterPattern[3] = new Monster("Гуманоид", "Веселый молочник", 300, 25, 8, "Разносит по утрам молоко в бидоне");
-        monsterPattern[4] = new Monster("Гуманоид", "Черный ворон", 90, 10, 10, "Слабая птица с отрым клювом");
-        monsterPattern[5] = new Monster("Гуманоид", "Оживший скелет", 50, 120, 2, "Мало здоровья, но сильная атака");
-        monsterPattern[6] = new Monster("Гуманоид", "Всадник без головы", 220, 15, 7, "Головы нет - пиши пропало!");
+        monsterPattern[0] = new Monster("Гуманоид", "Злобный гоблин", 10, 10, 15, "Довольно слабый монстр");
+        monsterPattern[1] = new Monster("Гуманоид", "Сильный орк", 15, 5, 15, "Упор в силу");
+        monsterPattern[2] = new Monster("Гуманоид", "Могучий тролль", 10, 15, 30, "Упор в живучесть");
+        monsterPattern[3] = new Monster("Гуманоид", "Веселый молочник", 13, 13, 15, "Разносит по утрам молоко в бидоне");
+        monsterPattern[4] = new Monster("Гуманоид", "Черный ворон", 5, 25, 10, "Слабая птица с отрым клювом");
+        monsterPattern[5] = new Monster("Гуманоид", "Оживший скелет", 25, 5, 7, "Мало здоровья, но сильная атака");
+        monsterPattern[6] = new Monster("Гуманоид", "Всадник без головы", 12, 15, 15, "Головы нет - пиши пропало!");
 
         currentRound = 1;
+    }
+
+    public int getAction(int min, int max, String str) {
+
+        InputStream inputStream = System.in;
+        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+        int x = 1;
+
+        do {
+
+            if (str != "") {
+                System.out.println(str);
+            }
+
+            try {
+                String strInputAction = bufferedReader.readLine();
+                x = Integer.parseInt(strInputAction);
+            }
+            catch (Exception e) {
+                x = 1;
+            }
+
+        } while (x < min || x > max);
+
+        return x;
     }
 
 }

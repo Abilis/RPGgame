@@ -9,9 +9,9 @@ public class Monster extends GameCharacter {
     private int attackChance;
     private int defenseChance;
 
-    public Monster(String charClass, String name, int hp, int attack, int defense, String description) {
+    public Monster(String charClass, String name, int strengh, int agility, int stamina, String description) {
 
-        super(charClass, name, hp, attack, defense, description);
+        super(charClass, name, strengh, agility, stamina, description);
         attackChance = 75;
         defenseChance = 25;
     }

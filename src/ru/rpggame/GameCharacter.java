@@ -21,11 +21,18 @@ public class GameCharacter implements Cloneable {
         return hpMax;
     }
 
+    //первичные параметры
+    protected int strengh;
+    protected int agility;
+    protected int stamina;
+
+    //вторичные параметры
     protected int attack;
     protected int defense;
-
+    protected float avoidChance;
     protected boolean blockStanse;
     protected int critChance;
+
     protected int level;
     protected boolean life;
 
@@ -39,19 +46,31 @@ public class GameCharacter implements Cloneable {
         return description;
     }
 
-    public GameCharacter(String charClass, String name, int hp, int attack, int defense, String description) {
+    public GameCharacter(String charClass, String name, int strengh, int agility, int stamina, String description) {
 
         this.charClass = charClass;
         this.name = name;
-        this.hp = hp;
-        this.hpMax = hp;
-        this.attack = attack;
-        this.defense = defense;
         this.blockStanse = false;
-        this.critChance = 10;
         this.level = 1;
         this.life = true;
         this.description = description;
+
+        this.strengh = strengh;
+        this.agility = agility;
+        this.stamina = stamina;
+
+        setSecondaryParameters();
+        this.hp = hpMax;
+    }
+
+    protected void setSecondaryParameters() {
+
+        this.attack = strengh * 2;
+        this.hpMax = stamina * 4;
+        this.defense = agility / 2;
+        this.critChance = agility;
+        this.avoidChance = (float)(3 + agility / 5);
+
     }
 
     public Object clone() {
@@ -86,7 +105,7 @@ public class GameCharacter implements Cloneable {
 
         int currentAttack = minAttach + GameLogic.rand.nextInt(deltaAttack);
 
-        if (critChance > GameLogic.rand.nextInt(100) ) {
+        if (critChance >= GameLogic.rand.nextInt(100) ) {
 
             currentAttack *= 2;
             System.out.println(name + " провел критическую атаку на " + currentAttack + " единиц урона!");
@@ -100,22 +119,34 @@ public class GameCharacter implements Cloneable {
 
     public void getDamage(int inputDamage) {
 
-        inputDamage -= defense; //из входящего урона отнимаем значение защиты
+        if (avoidChance < GameLogic.rand.nextInt(100)) {
 
-        if (blockStanse) { //если включена защитная стойка, то уменьшаем урон еще раз
-            inputDamage -= defense;
-            System.out.println(name + " заблокировал дополнительно " + defense + " единиц урона в защитной стойке!");
+            int minDefense = defense - (int)(defense * 0.7f);
+            int deltaDefense =(int)(defense * 0.6f);
+
+            int currentDefense = minDefense + GameLogic.rand.nextInt(deltaDefense);
+
+            inputDamage -= currentDefense; //из входящего урона отнимаем получившееся значение защиты
+
+            if (blockStanse) { //если включена защитная стойка, то уменьшаем урон еще раз
+                inputDamage -= currentDefense;
+                System.out.println(name + " заблокировал дополнительно " + currentDefense + " единиц урона в защитной стойке!" +
+                        " Всего заблокировано " + (2 * currentDefense) + " единиц урона");
+            }
+
+            if (inputDamage < 0) { //проверка на отрицательный урон
+                inputDamage = 0;
+            }
+
+            System.out.println(name + " получил " + inputDamage + " единиц урона");
+            hp -= inputDamage;
+
+            if (hp <= 0) {
+                life = false;
+            }
         }
-
-        if (inputDamage < 0) { //проверка на отрицательный урон
-            inputDamage = 0;
-        }
-
-        System.out.println(name + " получил " + inputDamage + " единиц урона");
-        hp -= inputDamage;
-
-        if (hp <= 0) {
-            life = false;
+        else {
+            System.out.println(name + " увернулся от атаки!");
         }
 
     }

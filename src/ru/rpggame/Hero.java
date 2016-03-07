@@ -9,11 +9,11 @@ public class Hero extends GameCharacter {
     private int expToNextLevel;
     private int killedEnemies;
 
-    public Hero(String charClass, String name, int hp, int attack, int defense, String description) {
+    public Hero(String charClass, String name, int strengh, int agility, int stamina, String description) {
 
-        super(charClass, name, hp, attack, defense, description);
+        super(charClass, name, strengh, agility, stamina, description);
         this.currentExp = 0;
-        this.expToNextLevel = 1000;
+        this.expToNextLevel = 100;
         this.killedEnemies = 0;
     }
 
@@ -26,10 +26,11 @@ public class Hero extends GameCharacter {
             currentExp -= expToNextLevel;
             expToNextLevel *= 1.3;
             level++;
-            attack += 2;
-            defense += 1;
-            hpMax += 10;
-            hp = hpMax;
+            strengh += 2;
+            agility += 2;
+            stamina += 4;
+            setSecondaryParameters(); //при повышении уровня пересчитываем вторичные параметры
+            hp = hpMax; //и полностью восстанавливаем здоровье
             System.out.println(name + " повысил уровень! Атака возросла до " + attack + ", защита - до "
                     + defense + ". Здоровье полностью восстановлено");
         }
