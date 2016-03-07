@@ -24,11 +24,11 @@ public class Hero extends GameCharacter {
 
         if (currentExp > expToNextLevel) {
             currentExp -= expToNextLevel;
-            expToNextLevel *= 1.1;
+            expToNextLevel *= 1.3;
             level++;
-            attack += 5;
+            attack += 2;
             defense += 1;
-            hpMax += 50;
+            hpMax += 10;
             hp = hpMax;
             System.out.println(name + " повысил уровень! Атака возросла до " + attack + ", защита - до "
                     + defense + ". Здоровье полностью восстановлено");
