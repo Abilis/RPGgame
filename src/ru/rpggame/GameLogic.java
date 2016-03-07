@@ -69,7 +69,7 @@ public class GameLogic {
 
             //ход игрока
             System.out.println("Ход игрока. 1 - атака, 2 - защита, 3 - пропустить ход, 9 - выйти из игры");
-            mainHero.makeNewRound(); //сбрасываем параметры для начала нового раунда
+            mainHero.makeNewRound(); //сбрасываем параметры для начала нового раунда для героя
 
             try {
                 this.inputStr = bufferedReader.readLine();
@@ -79,6 +79,15 @@ public class GameLogic {
             }
 
             int inputNum = Integer.parseInt(this.inputStr);
+
+
+            currentMonster.makeNewRound(); //сброс параметров для начала нового раунда для монстра
+            monsterTern = currentMonster.chooseTern(); //выбор варианта хода монстром
+
+            if (monsterTern == 2) { //если выбор монстра - встать в защитную стойку
+                currentMonster.setBlockStanse(); //то включаем ее
+            }
+
 
             if (inputNum == 1) {
 
@@ -123,20 +132,19 @@ public class GameLogic {
             }
 
             //ход монстра
-            currentMonster.makeNewRound();
-
-            monsterTern = currentMonster.chooseTern(); //выбор варианта хода монстром
 
             switch (monsterTern) {
 
                 case 1: mainHero.getDamage(currentMonster.makeAttack()); //монстр атакует главного героя
                     break;
-                case 2: currentMonster.setBlockStanse(); // монстр встает в защитную стойку
-                    break;
+
+                //защитная стойка уже включана, если выпала она. Поэтому здесь пропускаем
+
                 case 3: currentMonster.skipTern(); //монстр пропускает ход, чтобы подлечиться
                     break;
 
             }
+
 
 
             //Если главный герой умер - выходим из цикла
