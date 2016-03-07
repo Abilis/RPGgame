@@ -89,10 +89,10 @@ public class GameCharacter implements Cloneable {
         if (critChance > GameLogic.rand.nextInt(100) ) {
 
             currentAttack *= 2;
-            System.out.println(name + " нанес критический урон в размере " + currentAttack + " единиц урона!");
+            System.out.println(name + " провел критическую атаку на " + currentAttack + " единиц урона!");
         }
         else {
-            System.out.println(name + " нанес урон в размере " + currentAttack + " единиц урона!");
+            System.out.println(name + " провел атаку на " + currentAttack + " единиц урона!");
         }
 
         return currentAttack;
