@@ -198,6 +198,9 @@ public class GameCharacter implements Cloneable {
                 cure(100);
                 break;
 
+            default:
+                System.out.println("Этот предмет невозможно использовать!");
+                break;
         }
     }
 

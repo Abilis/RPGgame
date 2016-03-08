@@ -46,18 +46,37 @@ public class Monster extends GameCharacter {
         loot = new ArrayList<String>();
         loot.add(0, "Слабое зелье лечения");
         loot.add(1, "Среднее зелье лечения");
+        loot.add(2, "Древняя истертая монета");
+        loot.add(3, "Треснутый меч");
+        loot.add(4, "Стеклянный глаз");
+        loot.add(5, "Треугольный пакет от молока");
 
         return loot;
     }
 
     public String getLoot() {
 
-        if ( 75 > GameLogic.rand.nextInt(100)) {
+        int randomLoot = GameLogic.rand.nextInt(100);
+
+        if (randomLoot >= 0 && randomLoot < 10) {
             lootIndex = 0;
         }
-        else {
+        else if (randomLoot >= 10 && randomLoot < 15) {
             lootIndex = 1;
         }
+        else if (randomLoot >= 15 && randomLoot < 25) {
+            lootIndex = 2;
+        }
+        else if (randomLoot >= 25 && randomLoot < 60) {
+            lootIndex = 3;
+        }
+        else if (randomLoot >= 60 && randomLoot < 80) {
+            lootIndex = 4;
+        }
+        else if (randomLoot >= 80 && randomLoot < 100) {
+            lootIndex = 5;
+        }
+
 
         System.out.println("От убитого монстра остается " + loot.get(lootIndex));
 
