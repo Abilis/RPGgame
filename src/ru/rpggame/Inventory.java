@@ -16,6 +16,7 @@ public class Inventory {
 
     public void addNewItem(String _newItem) {
         inv.add(_newItem);
+        sortInv();
     }
 
     public int getInvSize() {
@@ -46,6 +47,35 @@ public class Inventory {
         String item = inv.get(_itemID - 1);
         inv.remove(_itemID - 1);
         return item;
+    }
+
+    private void sortInv() {
+
+        for (int i = 0; i < inv.size(); i++) {
+
+            for (int j = 0; j < inv.size() - 1; j++) {
+
+                if (isStr1EarlyThanStr2(inv.get(j + 1), inv.get(j))) { //если первая строка раньше второй
+                                                                        //то нужно поменять их местами
+                    String tmp = inv.get(j);
+                    inv.set(j, inv.get(j + 1));
+                    inv.set(j + 1, tmp);
+                }
+            }
+
+        }
+
+    }
+
+    private boolean isStr1EarlyThanStr2 (String str1, String str2) {
+
+        int more =  str1.compareToIgnoreCase(str2);
+        if (more > 0) {
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 
 }

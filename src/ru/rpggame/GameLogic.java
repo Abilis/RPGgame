@@ -85,7 +85,7 @@ public class GameLogic {
                         mainHero.killedEnemiesUp(); //увеличиваем счетчик убитых монстров
 
                         //даем с монстра случайный лут с вероятностью 33%
-                        if (33 > rand.nextInt(100)) {
+                        if (100 > rand.nextInt(100)) {
                             mainHero.getHeroInv().addNewItem(currentMonster.getLoot());
                         }
                         System.out.println();
