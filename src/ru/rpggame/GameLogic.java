@@ -81,7 +81,7 @@ public class GameLogic {
                     if (!currentMonster.isAlive()) { //если текущий монстр умер
 
                         System.out.println(currentMonster.getName() + " повержен!");
-                        mainHero.gainExp(currentMonster.getHpMax() / 10); //начисляем главному герою опыт
+                        mainHero.gainExp(currentMonster.getHpMax() / 5); //начисляем главному герою опыт
                         mainHero.killedEnemiesUp(); //увеличиваем счетчик убитых монстров
 
                         //даем с монстра случайный лут с вероятностью 33%

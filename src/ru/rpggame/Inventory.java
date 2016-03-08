@@ -72,8 +72,7 @@ public class Inventory {
 
     private boolean isStr1EarlyThanStr2 (String str1, String str2) {
 
-        int more =  str1.compareToIgnoreCase(str2);
-        if (more > 0) {
+        if (str1.compareToIgnoreCase(str2) > 0) {
             return false;
         }
         else {
