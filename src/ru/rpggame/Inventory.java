@@ -45,8 +45,11 @@ public class Inventory {
         }
 
         String item = inv.get(_itemID - 1);
-        inv.remove(_itemID - 1);
         return item;
+    }
+
+    public void removeItemFromInventory (String _itemID) {
+        inv.remove(_itemID);
     }
 
     private void sortInv() {

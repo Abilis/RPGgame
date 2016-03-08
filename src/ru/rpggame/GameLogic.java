@@ -124,7 +124,13 @@ public class GameLogic {
 
                     if (usedItem != "") {
                         mainHero.setUsedItemFromInventorySuccess(mainHero.useItem(usedItem));
-                    } else {
+
+                        if (mainHero.getUsedItemFromInventorySuccess()) { //если применение предмета из инвентаря успешно
+                            mainHero.getHeroInv().removeItemFromInventory(usedItem); //то удаляем этот предмет из инвентаря
+                        }
+
+                    }
+                    else {
                         System.out.println(mainHero.getName() + " решил ничего не использовать");
                         mainHero.setInventoryShowed(true);
                     }

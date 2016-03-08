@@ -44,6 +44,7 @@ public class Hero extends GameCharacter {
         this.killedEnemies = 0;
         heroInv = new Inventory();
         heroInv.addNewItem("Слабое зелье лечения");
+        usedItemFromInventorySuccess = true;
     }
 
     public void gainExp(int exp) { //метод получения опыта
@@ -80,6 +81,7 @@ public class Hero extends GameCharacter {
     public void makeNewRound() {
         blockStanse = false;
         inventoryShowed = false;
+        usedItemFromInventorySuccess = true;
     }
 
 }
