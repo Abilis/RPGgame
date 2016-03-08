@@ -24,6 +24,18 @@ public class Hero extends GameCharacter {
         inventoryShowed = _inventoryShowed;
     }
 
+    private boolean usedItemFromInventorySuccess; //переменная, показывающая, успешно ли было применение предмета из
+    //инвентаря героем в текущей итерации цикла
+
+    public boolean getUsedItemFromInventorySuccess() {
+        return usedItemFromInventorySuccess;
+    }
+
+    public void setUsedItemFromInventorySuccess(boolean _usedItemFromInventorySuccess) {
+        usedItemFromInventorySuccess = _usedItemFromInventorySuccess;
+    }
+
+
     public Hero(String charClass, String name, int strengh, int agility, int stamina, String description) {
 
         super(charClass, name, strengh, agility, stamina, description);

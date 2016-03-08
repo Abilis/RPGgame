@@ -123,7 +123,7 @@ public class GameLogic {
                     String usedItem = mainHero.getHeroInv().useItem(invInput);
 
                     if (usedItem != "") {
-                        mainHero.useItem(usedItem);
+                        mainHero.setUsedItemFromInventorySuccess(mainHero.useItem(usedItem));
                     } else {
                         System.out.println(mainHero.getName() + " решил ничего не использовать");
                         mainHero.setInventoryShowed(true);
@@ -145,6 +145,11 @@ public class GameLogic {
 
             //если был осмотр инвентаря - прерываем текущую итерацию цикла, чтобы монстр не бил героя
             if (mainHero.getInventoruShowed()) {
+                continue;
+            }
+
+            //если применение предмета из инвентаря было неуспешно - прерываем текущую итерацию цикла
+            if (!mainHero.getUsedItemFromInventorySuccess()) {
                 continue;
             }
 

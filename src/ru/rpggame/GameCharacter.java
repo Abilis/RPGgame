@@ -184,23 +184,23 @@ public class GameCharacter implements Cloneable {
 
     }
 
-    public void useItem (String _item) {
+    public boolean useItem (String _item) {
 
         switch (_item) {
 
             case "Слабое зелье лечения":
                 System.out.println(name + " использовал слабое зелье лечения!");
                 cure(50);
-                break;
+                return true;
 
             case "Среднее зелье лечения":
                 System.out.println(name + " использовал среднее зелье лечения!");
                 cure(100);
-                break;
+                return true;
 
             default:
                 System.out.println("Этот предмет невозможно использовать!");
-                break;
+                return false;
         }
     }
 
