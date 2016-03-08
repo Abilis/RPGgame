@@ -193,6 +193,10 @@ public class GameCharacter implements Cloneable {
                 cure(50);
                 break;
 
+            case "Среднее зелье лечения":
+                System.out.println(name + " использовал среднее зелье лечения!");
+                cure(100);
+                break;
 
         }
     }

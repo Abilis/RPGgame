@@ -1,5 +1,8 @@
 package ru.rpggame;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 /**
  * Created by Abilis on 06.03.2016.
  */
@@ -8,12 +11,15 @@ public class Monster extends GameCharacter {
     private int healChance;
     private int attackChance;
     private int defenseChance;
+    private ArrayList<String> loot;
+    private int lootIndex;
 
     public Monster(String charClass, String name, int strengh, int agility, int stamina, String description) {
 
         super(charClass, name, strengh, agility, stamina, description);
         attackChance = 75;
         defenseChance = 25;
+        createLoot();
     }
 
     public int chooseTern () {
@@ -34,5 +40,30 @@ public class Monster extends GameCharacter {
         }
 
     }
+
+    private ArrayList createLoot() {
+
+        loot = new ArrayList<String>();
+        loot.add(0, "Слабое зелье лечения");
+        loot.add(1, "Среднее зелье лечения");
+
+        return loot;
+    }
+
+    public String getLoot() {
+
+        if ( 75 > GameLogic.rand.nextInt(100)) {
+            lootIndex = 0;
+        }
+        else {
+            lootIndex = 1;
+        }
+
+        System.out.println("От убитого монстра остается " + loot.get(lootIndex));
+
+        return loot.get(lootIndex);
+    }
+
+
 
 }

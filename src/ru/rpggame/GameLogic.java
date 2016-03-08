@@ -84,6 +84,10 @@ public class GameLogic {
                         mainHero.gainExp(currentMonster.getHpMax() * 2); //начисляем главному герою опыт
                         mainHero.killedEnemiesUp(); //увеличиваем счетчик убитых монстров
 
+                        //даем с монстра случайный лут с вероятностью 33%
+                        if (33 > rand.nextInt(100)) {
+                            mainHero.getHeroInv().addNewItem(currentMonster.getLoot());
+                        }
                         System.out.println();
 
                         //задержка в 2 секунды перед появлением нового монстра
