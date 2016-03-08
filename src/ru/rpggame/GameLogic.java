@@ -115,7 +115,7 @@ public class GameLogic {
                     break;
 
                 case 4:
-                    //вызор инвентаря героя
+                    //вызов инвентаря героя
 
                     mainHero.getHeroInv().showAllItems();
                     int invInput = getAction(0, mainHero.getHeroInv().getInvSize(), "Выберите предмет для использования: ");
