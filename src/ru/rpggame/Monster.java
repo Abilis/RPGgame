@@ -50,6 +50,11 @@ public class Monster extends GameCharacter {
         loot.add(3, "Треснутый меч");
         loot.add(4, "Стеклянный глаз");
         loot.add(5, "Треугольный пакет от молока");
+        loot.add(6, "Шкура тролля");
+        loot.add(7, "Бедренная кость");
+        loot.add(8, "Перо черной птицы");
+        loot.add(9, "Сломанное стремя");
+        loot.add(10, "Сломанный топор войны");
 
         return loot;
     }
@@ -67,14 +72,29 @@ public class Monster extends GameCharacter {
         else if (randomLoot >= 15 && randomLoot < 25) {
             lootIndex = 2;
         }
-        else if (randomLoot >= 25 && randomLoot < 60) {
+        else if (randomLoot >= 25 && randomLoot < 35) {
             lootIndex = 3;
         }
-        else if (randomLoot >= 60 && randomLoot < 80) {
+        else if (randomLoot >= 35 && randomLoot < 45) {
             lootIndex = 4;
         }
-        else if (randomLoot >= 80 && randomLoot < 100) {
+        else if (randomLoot >= 45 && randomLoot < 55) {
             lootIndex = 5;
+        }
+        else if (randomLoot >= 55 && randomLoot < 65) {
+            lootIndex = 6;
+        }
+        else if (randomLoot >= 65 && randomLoot < 75) {
+            lootIndex = 7;
+        }
+        else if (randomLoot >= 75 && randomLoot < 85) {
+            lootIndex = 8;
+        }
+        else if (randomLoot >= 85 && randomLoot < 95) {
+            lootIndex = 9;
+        }
+        else if (randomLoot >= 95 && randomLoot < 100) {
+            lootIndex = 10;
         }
 
 
